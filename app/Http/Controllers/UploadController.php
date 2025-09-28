@@ -52,10 +52,12 @@ class UploadController extends Controller
 
         Storage::disk('local')->putFileAs("tmp/uploads/{$uuid}/chunks", $chunkFile, "{$chunkIndex}.part.tmp");
 
-        // atomically move
-        $tmp = storage_path("app/{$path}.tmp");
-        $final = storage_path("app/".str_replace('.tmp','',$path));
-        rename($tmp,$final);
+        // atomically move 
+        $tmpPath = "{$path}.tmp";
+        if (!Storage::disk('local')->exists($tmpPath)) {
+            return response()->json(['error' => 'Chunk file not found after upload'], 500);
+        }
+        Storage::disk('local')->move($tmpPath, $path);
 
         // update count in DB (optimistic)
         $upload->increment('received_chunks');
@@ -102,11 +104,14 @@ class UploadController extends Controller
 
             $assembledPath = storage_path("app/tmp/uploads/{$uuid}/{$upload->filename}");
 
+            // ensure assembled file directory exists
+            @mkdir(dirname($assembledPath), 0777, true);
+
             // assemble (stream)
             $out = fopen($assembledPath, 'wb');
 
             for ($i=0;$i<$upload->total_chunks;$i++) {
-                $chunkPath = storage_path("app/tmp/uploads/{$uuid}/chunks/{$i}.part");
+                $chunkPath = Storage::disk('local')->path("tmp/uploads/{$uuid}/chunks/{$i}.part");
                 $in = fopen($chunkPath,'rb');
                 while (!feof($in)) {
                     fwrite($out, fread($in, 8192));
