@@ -44,14 +44,14 @@ This project demonstrates a Laravel 12 application that implements:
    cd laravel-task-a
 
 2. **Install dependencies**
-
-composer install
-npm install && npm run build
+  ```bash
+  composer install
+  npm install && npm run build
 
 3. **Configure environment**
-
-cp .env.example .env
-php artisan key:generate
+  ```bash
+  cp .env.example .env
+  php artisan key:generate
 
 Set DB and queue settings in .env:
 
@@ -63,21 +63,21 @@ DB_PASSWORD=
 QUEUE_CONNECTION=database
 
 4. **Publish and Run migrations**
-
-php artisan vendor:publish --provider="RahulHaque\Filepond\FilepondServiceProvider"
-php artisan migrate
+  ```bash
+  php artisan vendor:publish --provider="RahulHaque\Filepond\FilepondServiceProvider"
+  php artisan migrate
 
 5. **Start queue worker**
-
-php artisan queue:work
+  ```bash
+  php artisan queue:work
 
 6. **Run server**
-
-composer run dev / php artisan serve
+  ```bash
+  composer run dev / php artisan serve
 
 7. **Testing**
-
-php artisan test
+  ```bash
+  php artisan test
 
 
 
