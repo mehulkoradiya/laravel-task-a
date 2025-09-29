@@ -53,14 +53,14 @@ This project demonstrates a Laravel 12 application that implements:
   cp .env.example .env
   php artisan key:generate
 
-Set DB and queue settings in .env:
+  Set DB and queue settings in .env:
 
-DB_CONNECTION=mysql
-DB_DATABASE=laravel_task_a
-DB_USERNAME=root
-DB_PASSWORD=
+  DB_CONNECTION=mysql
+  DB_DATABASE=laravel_task_a
+  DB_USERNAME=root
+  DB_PASSWORD=
 
-QUEUE_CONNECTION=database
+  QUEUE_CONNECTION=database
 
 4. **Publish and Run migrations**
   ```bash
