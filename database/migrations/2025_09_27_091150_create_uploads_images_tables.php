@@ -11,23 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('uploads', function (Blueprint $table) {
-            $table->id();
-            $table->uuid('uuid')->unique();
-            $table->string('filename');
-            $table->bigInteger('size')->default(0);
-            $table->string('checksum')->nullable();
-            $table->string('storage_disk')->default('public');
-            $table->enum('status', ['pending','uploading','assembling','completed','failed'])->default('pending');
-            $table->integer('total_chunks')->nullable();
-            $table->integer('received_chunks')->default(0);
-            $table->json('metadata')->nullable();
-            $table->timestamps();
-        });
-
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('upload_id')->constrained('uploads')->cascadeOnDelete();
             $table->string('path');
             $table->string('checksum')->nullable();
             $table->integer('width')->nullable();
@@ -56,6 +41,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('image_variants');
         Schema::dropIfExists('images');
-        Schema::dropIfExists('uploads');
     }
 };
