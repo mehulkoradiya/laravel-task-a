@@ -62,8 +62,9 @@ DB_PASSWORD=
 
 QUEUE_CONNECTION=database
 
-4. **Run migrations**
+4. **Publish and Run migrations**
 
+php artisan vendor:publish --provider="RahulHaque\Filepond\FilepondServiceProvider"
 php artisan migrate
 
 5. **Start queue worker**

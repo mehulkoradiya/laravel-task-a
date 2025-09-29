@@ -6,7 +6,7 @@
 
     <form id="csv-form" enctype="multipart/form-data">
         <input type="file" name="file" accept=".csv" class="form-control mb-3" required>
-        <button type="submit" class="btn btn-primary">Upload CSV</button>
+    <button type="submit" class="btn btn-primary" id="uploadBtn">Upload CSV</button>
     </form>
 
     <div id="import-status" class="mt-4"></div>
@@ -15,9 +15,11 @@
 
 @section('scripts')
 <script>
+$('#uploadBtn').prop('disabled', false);
 $('#csv-form').on('submit', function(e){
     e.preventDefault();
     let formData = new FormData(this);
+    $('#uploadBtn').prop('disabled', true);
     $.ajax({
         url: '/api/products/import',
         method: 'POST',
@@ -30,6 +32,7 @@ $('#csv-form').on('submit', function(e){
         },
         error: function(xhr){
             alert(xhr.responseText);
+            $('#uploadBtn').prop('disabled', false);
         }
     });
 });
@@ -39,6 +42,9 @@ function pollStatus(id){
         $('#import-status').html(`<pre>${JSON.stringify(data, null, 2)}</pre>`);
         if(data.status === 'running' || data.status === 'queued'){
             setTimeout(()=>pollStatus(id), 2000);
+        } else {
+            // Enable button when import is finished
+            $('#uploadBtn').prop('disabled', false);
         }
     });
 }
