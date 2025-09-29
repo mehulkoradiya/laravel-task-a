@@ -39,45 +39,53 @@ This project demonstrates a Laravel 12 application that implements:
 ## 🚀 Setup & Installation
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/mehulkoradiya/laravel-task-a.git
-   cd laravel-task-a
+    ```bash
+    git clone https://github.com/mehulkoradiya/laravel-task-a.git
+    cd laravel-task-a
+    ```
 
 2. **Install dependencies**
-  ```bash
-  composer install
-  npm install && npm run build
+    ```bash
+    composer install
+    npm install && npm run build
+    ```
 
 3. **Configure environment**
-  ```bash
-  cp .env.example .env
-  php artisan key:generate
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+    Set DB and queue settings in [.env](http://_vscodecontentref_/0):
+    ```
+    DB_CONNECTION=mysql
+    DB_DATABASE=laravel_task_a
+    DB_USERNAME=root
+    DB_PASSWORD=
 
-  Set DB and queue settings in .env:
-
-  DB_CONNECTION=mysql
-  DB_DATABASE=laravel_task_a
-  DB_USERNAME=root
-  DB_PASSWORD=
-
-  QUEUE_CONNECTION=database
+    QUEUE_CONNECTION=database
+    ```
 
 4. **Publish and Run migrations**
-  ```bash
-  php artisan vendor:publish --provider="RahulHaque\Filepond\FilepondServiceProvider"
-  php artisan migrate
+    ```bash
+    php artisan vendor:publish --provider="RahulHaque\\Filepond\\FilepondServiceProvider"
+    php artisan migrate
+    ```
 
 5. **Start queue worker**
-  ```bash
-  php artisan queue:work
+    ```bash
+    php artisan queue:work
+    ```
 
 6. **Run server**
-  ```bash
-  composer run dev / php artisan serve
+    ```bash
+    npm run dev
+    # or
+    php artisan serve
+    ```
 
 7. **Testing**
-  ```bash
-  php artisan test
+    ```bash
+    php artisan test
+    ```
 
-
-
+---
